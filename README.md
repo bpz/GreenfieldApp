@@ -1,2 +1,2 @@
-# MyApp1
+# GreenField App
 A simple app without techology restrictions
