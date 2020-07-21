@@ -23,6 +23,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ env.NODE_VERSION }}
+        registry-url: 'https://registry.npmjs.org'
+        scope: '@bpz'
 
     - name: install packages
       run:
@@ -42,6 +44,7 @@ jobs:
       working-directory: ${{ env.directory }}
     
     - name: Publish to github packages
+      uses: 
       run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
