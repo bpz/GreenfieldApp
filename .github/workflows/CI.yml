@@ -12,12 +12,12 @@ env:
   NODE_VERSION: '10.13'
   directory: './greenfield'
   bundle-path: 'dist'
-  code-coverage-path: 'dist/coverage/index.html'
+  code-coverage-path: 'coverage/index.html'
 
 jobs:
   build:
     name: Build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
