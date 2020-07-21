@@ -4,9 +4,9 @@ name: CI
 
 on:
   push:
-    branches: [ CI ]
+    branches: [ CI-e2e-test ]
   pull_request:
-    branches: [ CI ]
+    branches: [ CI-e2e-test]
 
 env:
   NODE_VERSION: '10.13'
@@ -31,6 +31,10 @@ jobs:
 
     - name: build
       run: npm run build -- --prod
+      working-directory: ${{ env.directory }}
+
+    - name: e2e test
+      run: npm run e2e
       working-directory: ${{ env.directory }}
 
     - name: unit tests
