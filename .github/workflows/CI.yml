@@ -4,9 +4,9 @@ name: CI
 
 on:
   push:
-    branches: [ CI ]
+    branches: [ master ]
   pull_request:
-    branches: [ CI ]
+    branches: [ master ]
 
 env:
   NODE_VERSION: '10.13'
