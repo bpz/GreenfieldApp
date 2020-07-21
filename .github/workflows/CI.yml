@@ -1,0 +1,42 @@
+# Workflow for continuous integration
+
+name: CI
+
+on:
+  push:
+    branches: [ CI ]
+  pull_request:
+    branches: [ CI ]
+
+env:
+  NODE_VERSION: '10.13'
+  directory: './greenfield'
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: install packages
+      run:
+        npm ci
+      working-directory: ${{ env.directory }}
+
+    - name: build
+      run: npm run build -- --prod
+      working-directory: ${{ env.directory }}
+
+    - name: unit tests
+      run: npm run test -- --no-watch --no-progress
+      working-directory: ${{ env.directory }}
+
+    - name: code coverage
+      run: npm run test -- --no-watch --code-coverage
+      working-directory: ${{ env.directory }}
