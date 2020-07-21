@@ -11,8 +11,8 @@ on:
 env:
   NODE_VERSION: '10.13'
   directory: './greenfield'
-  bundle-path: './dist'
-  code-coverage-path: './dist/coverage/index.html'
+  bundle-path: 'dist'
+  code-coverage-path: 'dist/coverage/index.html'
 
 jobs:
   build:
