@@ -12,7 +12,7 @@ env:
   NODE_VERSION: '10.13'
   directory: './greenfield'
   bundle-path: './greenfield/dist'
-  code-coverage-path: './greenfield/coverage/index.html'
+  code-coverage-path: './greenfield/coverage'
 
 jobs:
   build:
