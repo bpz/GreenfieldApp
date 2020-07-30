@@ -11,8 +11,8 @@ on:
 env:
   NODE_VERSION: '10.13'
   directory: './greenfield'
-  bundle-path: 'dist'
-  code-coverage-path: 'coverage/index.html'
+  bundle-path: './greenfield/dist'
+  code-coverage-path: './greenfield/coverage/index.html'
 
 jobs:
   build:
@@ -48,13 +48,13 @@ jobs:
       working-directory: ${{ env.directory }}
     
     - name: Archive bundle
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         name: bundle
         path: ${{ env.bundle-path }}
 
     - name: Archive code coverage results
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         name: code-coverage-report
         path: ${{ env.code-coverage-path }}
