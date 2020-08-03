@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.loginBox {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: flex-start;
+    border: 1px solid lightgrey;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 30px;
+    margin: 15px;
+    min-width: fit-content;
+    min-height: fit-content;
+}
+
+.loginBox > button{
+    background-color:#007FFF;
+    color:white;
+    margin-bottom: 6%;
+}
+
+.loginForm {
+    margin: 5% 0% 5% 0%;
+}
+
+.loginForm > input {
+    margin: 2% 0% 2% 0%;
+}
+
+img.logo {
+    width: 25%;
+    align-self: center;
+    margin: 10% 0% 10% 0%;
+}
