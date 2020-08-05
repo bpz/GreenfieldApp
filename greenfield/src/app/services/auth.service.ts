@@ -9,21 +9,22 @@ import { of } from 'rxjs';
 })
 
 export class AuthService {
-  private loggedIn = of(false);
+  private loggedIn = false;
   private token: string;
 
   constructor(private http: HttpClient) {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       this.token = storedToken;
-      this.loggedIn = of(true);
+      this.loggedIn = true;
     }
   }
 
   login(username: string, password: string): string {
     // As API is not ready, we use this harcoded token
+    console.log("Take token from environment");
     this.token = environment.token;
-    this.loggedIn = of(true);
+    this.loggedIn = true;
 
     localStorage.setItem('token', this.token);
     
@@ -32,10 +33,10 @@ export class AuthService {
 
   logout() {
     this.token = null;
-    this.loggedIn = of(false);
+    this.loggedIn = false;
   }
 
-  isLoggedIn(): Observable<boolean> {
+  isLoggedIn(): boolean {
     return this.loggedIn;
   }
 }
