@@ -21,9 +21,7 @@
     min-height: fit-content;
 }
 
-.loginBox > button{
-    background-color:#007FFF;
-    color:white;
+form > button.positive {
     margin-bottom: 6%;
 }
 

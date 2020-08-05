@@ -3,11 +3,14 @@
 
         <img src="../../../assets/karumi-logo-negro-150px.png" alt="Karumi Logo" class="logo">
 
-        <div class="loginForm">
-            <input id="iusername" type="text" placeholder="Username" required>
-            <input id="ipassword" type="password" placeholder="Password" required>
-        </div>
+        <form [formGroup]="loginInfo" (ngSubmit)="onSubmit(loginInfo.value)">
 
-        <button type="submit">Login</button>
+            <div class="loginForm">
+                <input id="iusername" type="text" placeholder="Username" required formControlName="username">
+                <input id="ipassword" type="password" placeholder="Password" required formControlName="password">
+            </div>
+
+            <button class="positive" type="submit">Login</button>
+        </form>
     </div>
 </div>
