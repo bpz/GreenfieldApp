@@ -22,10 +22,12 @@ describe('APIService', () => {
 
   it('should return a token', () => {
     const expectedToken = "1234";
+    const user = "user";
+    const pass = "pass";
 
     httpClientSpy.get.and.returnValue(asyncData(expectedToken));
 
-    service.getToken().subscribe(
+    service.getToken(user, pass).subscribe(
       token => expect(token).toEqual(expectedToken, 'expected token'),
       fail
     );
@@ -33,17 +35,19 @@ describe('APIService', () => {
     expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
   });
 
-  it('should return an error when the server returns a 404', () => {
+  it('should return an emtpy when the server returns error 404', () => {
     const errorResponse = new HttpErrorResponse({
       error: 'test 404 error',
       status: 404, statusText: 'Not Found'
     });
+    const user = "user";
+    const pass = "pass";
 
     httpClientSpy.get.and.returnValue(asyncError(errorResponse));
 
-    service.getToken().subscribe(
-      token => expect(token).toContain(''),
-      error => expect(error.message).toContain('test 404 error')
+    service.getToken(user, pass).subscribe(
+      token => expect(token).toEqual('', 'expected token'),
+      fail
     );
   });
 });

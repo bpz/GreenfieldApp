@@ -5,8 +5,6 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 
-const baseUrl = 'http://localhost:10101';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +13,7 @@ export class APIService {
 
   constructor(private http: HttpClient) { }
 
-  getToken(): Observable<string> {
+  getToken(username:string, password:string): Observable<string> {
     return this.http.get<string>(environment.loginUrl)
       .pipe(
         catchError(this.handleError<string>('getToken', ''))
