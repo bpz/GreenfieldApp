@@ -1,23 +1,22 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 describe('AuthService', () => {
-  let service: AuthService;
   let httpClientSpy: { get: jasmine.Spy };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HttpClient]
+      imports: [HttpClientModule],
     });
-
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-
-    service = new AuthService(httpClientSpy as any);
   });
 
-  it('should be created', () => {
+  it('should be created', inject([AuthService], (service: AuthService) => {
     expect(service).toBeTruthy();
-  });
+  }));
+
+  it('login returns non empty', inject([AuthService], (service: AuthService) => {
+    expect(service.login('', '').length).toBeGreaterThan(0);
+  }));
 });
