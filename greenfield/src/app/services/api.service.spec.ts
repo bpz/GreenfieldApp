@@ -42,11 +42,12 @@ describe('APIService', () => {
     });
     const user = "user";
     const pass = "pass";
+    const expectedToken = '';
 
     httpClientSpy.get.and.returnValue(asyncError(errorResponse));
 
     service.getToken(user, pass).subscribe(
-      token => expect(token).toEqual('', 'expected token'),
+      token => expect(token).toBe(expectedToken, 'expected token'),
       fail
     );
   });
