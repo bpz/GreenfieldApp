@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private loginInfo: any;
+  public loginInfo: any;
 
   constructor(
     private authService: AuthService,
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(data: any) {
 
-    this.authService.login(data.user, data.password);
+    this.authService.login(data.username, data.password);
     this.loginInfo.reset();
   }
 
