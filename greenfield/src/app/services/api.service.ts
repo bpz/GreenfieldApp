@@ -13,14 +13,14 @@ export class APIService {
 
   constructor(private http: HttpClient) { }
 
-  getToken(username:string, password:string): Observable<string> {
+  getToken(username: string, password: string): Observable<string> {
     return this.http.get<string>(environment.loginUrl)
       .pipe(
         catchError(this.handleError<string>('getToken', ''))
       );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  private handleError<T>(operation: string, result?: T) {
     return (error: any): Observable<T> => {
 
       console.error(error);

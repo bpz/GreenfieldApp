@@ -50,7 +50,7 @@ describe('AuthService', () => {
     const stubValue = "1234";
     const user = "1234";
     const pass = "1234";
-    const fake =  { getToken: (user:string, pass:string) => of(stubValue) };
+    const fake = { getToken: (user: string, pass: string) => of(stubValue) };
 
     let service = new AuthService(fake as APIService);
     service.logout();
@@ -61,6 +61,24 @@ describe('AuthService', () => {
 
     service.isLoggedIn().subscribe(
       response => expect(response).toBeTrue(),
+      fail
+    );
+  });
+
+  it('getToken returns empty, do nothing', () => {
+    const stubValue = "";
+    const user = "1234";
+    const pass = "1234";
+    const fake = { getToken: (user: string, pass: string) => of(stubValue) };
+
+    localStorage.setItem('token', "1234");
+
+    let service = new AuthService(fake as APIService);
+    service.logout();
+    service.login(user,pass);
+
+    service.isLoggedIn().subscribe(
+      response => expect(response).toBeFalse(),
       fail
     );
   });
