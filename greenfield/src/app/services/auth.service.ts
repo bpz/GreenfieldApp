@@ -24,7 +24,6 @@ export class AuthService {
     if (username !== '' && password !== '') {
       return this.apiService.getToken(username, password)
         .subscribe((response: any) => {
-          console.log(response);
           if (response !== undefined && response !== '') {
             this.token = response;
             this.loggedIn = of(true);

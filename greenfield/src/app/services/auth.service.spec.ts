@@ -25,14 +25,16 @@ describe('AuthService', () => {
   }));
 
   it('login saves token', () => {
-    const stubValue = 'token';
-    apiServiceSpy.getToken.and.returnValue(of(stubValue));
+    const stubValue = "1234";
+    const user = "1234";
+    const pass = "1234";
+    const fake =  { getToken: (user:string, pass:string) => of(stubValue) };
 
-    let service = new AuthService(apiServiceSpy);
-    service.login('', '');
+    let service = new AuthService(fake as APIService);
+    service.login(user, pass);
 
     service.isLoggedIn().subscribe(
-      response => expect(response).toEqual(true, 'expected logged in true'),
+      response => expect(response).toBeTrue(),
       fail
     );
   });
