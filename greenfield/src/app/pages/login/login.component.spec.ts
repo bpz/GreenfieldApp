@@ -3,6 +3,7 @@ import { LoginComponent } from './login.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -10,7 +11,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, ReactiveFormsModule],
       declarations: [LoginComponent],
       providers: [AuthService, FormBuilder]
     })
