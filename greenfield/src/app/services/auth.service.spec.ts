@@ -15,23 +15,49 @@ describe('AuthService', () => {
       imports: [HttpClientModule],
       providers: [{ provide: APIService, useValue: spy }],
     });
-    // Inject both the service-to-test and its (spy) dependency
-    service = TestBed.inject(AuthService);
-    apiServiceSpy = TestBed.inject(APIService) as jasmine.SpyObj<APIService>
   });
 
   it('should be created', inject([AuthService], (service: AuthService) => {
     expect(service).toBeTruthy();
   }));
 
-  it('login saves token', () => {
+  it('log out removes token and makes login status false', inject([AuthService], (service: AuthService) => {
+    service.logout();
+
+    var token = localStorage.getItem('token');
+    expect(token).toBeNull();
+
+    service.isLoggedIn().subscribe(
+      response => expect(response).toBeFalse(),
+      fail
+    );
+  }));
+
+  it('log in with empty params, not logged', inject([AuthService], (service: AuthService) => {
+    service.logout();
+    service.login('', '');
+
+    var token = localStorage.getItem('token');
+    expect(token).toBeNull();
+
+    service.isLoggedIn().subscribe(
+      response => expect(response).toBeFalse(),
+      fail
+    );
+  }));
+
+  it('log in with non-empty params, logged', () => {
     const stubValue = "1234";
     const user = "1234";
     const pass = "1234";
     const fake =  { getToken: (user:string, pass:string) => of(stubValue) };
 
     let service = new AuthService(fake as APIService);
+    service.logout();
     service.login(user, pass);
+
+    var token = localStorage.getItem('token');
+    expect(token).toBeTruthy();
 
     service.isLoggedIn().subscribe(
       response => expect(response).toBeTrue(),

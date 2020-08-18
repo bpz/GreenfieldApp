@@ -21,10 +21,10 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    if (username !== '' && password !== '') {
+    if (username && password) {
       return this.apiService.getToken(username, password)
         .subscribe((response: any) => {
-          if (response !== undefined && response !== '') {
+          if (response) {
             this.token = response;
             this.loggedIn = of(true);
             localStorage.setItem('token', this.token);
@@ -35,6 +35,7 @@ export class AuthService {
 
   logout() {
     this.token = null;
+    localStorage.removeItem('token');
     this.loggedIn = of(false);
   }
 
