@@ -1,42 +1,45 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs';
+import { APIService } from './api.service';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  private loggedIn = false;
+  private loggedIn: Observable<boolean>;
   private token: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private apiService: APIService) {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       this.token = storedToken;
-      this.loggedIn = true;
+      this.loggedIn = of(true);
+    } else {
+      this.loggedIn = of(false);
     }
   }
 
-  login(username: string, password: string): string {
-    // As API is not ready, we use this harcoded token
-    console.log("Take token from environment");
-    this.token = environment.token;
-    this.loggedIn = true;
-
-    localStorage.setItem('token', this.token);
-    
-    return this.token;
+  login(username: string, password: string) {
+    if (username !== '' && password !== '') {
+      return this.apiService.getToken(username, password)
+        .subscribe((response: any) => {
+          console.log(response);
+          if (response !== undefined && response !== '') {
+            this.token = response;
+            this.loggedIn = of(true);
+            localStorage.setItem('token', this.token);
+          }
+        });
+    }
   }
 
   logout() {
     this.token = null;
-    this.loggedIn = false;
+    this.loggedIn = of(false);
   }
 
-  isLoggedIn(): boolean {
+  isLoggedIn(): Observable<boolean> {
     return this.loggedIn;
   }
 }

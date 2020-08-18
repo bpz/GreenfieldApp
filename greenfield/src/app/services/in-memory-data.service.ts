@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    return environment.token;
+    let token = { id: 1, token: environment.token } ;
+    return token ;
   }
 }
