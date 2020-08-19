@@ -20,16 +20,20 @@ describe('AuthService', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
-        RouterTestingModule.withRoutes([
-          { path: '', component: LoginComponent },
-          { path: 'login', component: LoginComponent },
-          { path: 'logout', component: LogoutComponent },
-          { path: '**', redirectTo: '' }
-        ])],
+        RouterTestingModule
+          .withRoutes([
+            { path: '', component: LoginComponent },
+            { path: 'login', component: LoginComponent },
+            { path: 'logout', component: LogoutComponent },
+            { path: '**', redirectTo: '' }
+          ])
+      ],
       providers: [
-        { provide: APIService, useValue: apiServiceSpy }],
+        { provide: APIService, useValue: apiServiceSpy },
+      ],
     });
-    let router = TestBed.get(Router);
+
+    router = TestBed.get(Router);
 
     service = new AuthService(apiServiceSpy as APIService, router);
   });
@@ -40,6 +44,9 @@ describe('AuthService', () => {
 
   it('log out, not authenticated', () => {
     service.logout();
+
+    // const navigateSpy = spyOn(router, 'navigate');
+    // expect(navigateSpy).toHaveBeenCalledWith(['login']);
 
     expect(service.isAuthenticated()).toBeFalse();
   });
@@ -71,7 +78,8 @@ describe('AuthService', () => {
     const pass = "1234";
 
     apiServiceSpy.getToken.and.returnValue(asyncData(stubValue));
-    
+
+    service.logout();
     await service.login(user, pass);
 
     expect(service.isAuthenticated()).toBeFalse();
