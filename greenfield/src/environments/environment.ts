@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  token: 'https://jwt.io/#debugger-io?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIFNtaXRoIiwiaWF0IjoxNTk3MzQ5NjAwfQ.LK8T9oGwu_hcYJTzwcGcDMIgltJNwTjjIpsuYAQztmc',
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNjA5MjM5MDIyfQ.dYtwBJ6Z68motcj4-UKNX2xF7f5KBR10d-jP1HmCn54',
   loginUrl: 'api/token'
 };
 
