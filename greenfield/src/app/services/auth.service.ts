@@ -16,22 +16,21 @@ export class AuthService {
     private router: Router) {
     this.jwtHelperService = new JwtHelperService();
 
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      this.token = storedToken;
-    }
+    let storedToken = localStorage.getItem('token');
+    this.token = storedToken;
+    this.updatePage();
   }
 
   public async login(username: string, password: string) {
     if (username && password) {
+      console.log(username, password);
       return this.apiService.getToken(username, password)
         .subscribe((response: any) => {
+          console.log(response);
           if (response) {
+            localStorage.setItem('token', response);
             this.token = response;
-            localStorage.setItem('token', this.token);
-            if (this.isAuthenticated()) {
-              this.router.navigate(['logout']);
-            }
+            this.updatePage();
           }
         });
     }
@@ -45,11 +44,16 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     if (this.token) {
-      if (!this.jwtHelperService.isTokenExpired(this.token)) {
-        return true;
-      }
-      this.logout();
+      return !this.jwtHelperService.isTokenExpired(this.token);
     }
     return false;
+  }
+
+  public updatePage() {
+    if (this.isAuthenticated()) {
+      this.router.navigate(['logout']);
+    } else {
+      this.logout();
+    }
   }
 }
