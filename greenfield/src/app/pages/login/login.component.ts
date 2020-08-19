@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
     this.loginInfo = this.formBuilder.group({
       username: '',
@@ -23,10 +23,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(data: any) {
-
-    this.authService.login(data.username, data.password);
+  async onSubmit(data: any) {
+    await this.authService.login(data.username, data.password);
     this.loginInfo.reset();
   }
-
 }

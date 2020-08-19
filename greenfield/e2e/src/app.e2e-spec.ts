@@ -15,4 +15,17 @@ describe('workspace-project App', () => {
       level: logging.Level.SEVERE,
     } as logging.Entry));
   });
+
+  it('should create', () => {
+    expect(page).toBeTruthy();
+  });
+
+  it('shoult be a loggin button in home', () => {
+    browser.get('/home');
+    expect(page.getLogginButon()).toBeTruthy();
+  });
+
+  it('shoult be a loggin button in home', () => {
+    browser.get('/home');
+  });
 });

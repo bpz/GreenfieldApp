@@ -35,7 +35,7 @@ describe('APIService', () => {
     expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
   });
 
-  it('should return an emtpy when the server returns error 404', () => {
+  it('should return emtpy when the server returns error 404', () => {
     const errorResponse = new HttpErrorResponse({
       error: 'test 404 error',
       status: 404, statusText: 'Not Found'

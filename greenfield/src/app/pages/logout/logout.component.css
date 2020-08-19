@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.logout {
+    background-color: grey;
+    color:white;
+    margin-bottom: 6%;
+}
+.logout:hover {
+    background-color: lightgray;
+    color: black;
+  }
