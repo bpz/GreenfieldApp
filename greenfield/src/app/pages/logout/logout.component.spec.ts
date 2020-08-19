@@ -31,8 +31,8 @@ describe('LogoutComponent', () => {
   });
 
   it('logout button says Logout', () => {
-    const usernameElement: HTMLElement = fixture.nativeElement;
-    const btn = usernameElement.querySelector('.container button');
+    const htmlElement: HTMLElement = fixture.nativeElement;
+    const btn = htmlElement.querySelector('.container button');
     expect(btn.textContent).toEqual('Logout');
   });
 

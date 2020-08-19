@@ -35,28 +35,28 @@ describe('LoginComponent', () => {
   });
 
   it('should have a logo', () => {
-    const logoElement: HTMLElement = fixture.nativeElement;
-    const img = logoElement.querySelector('.container .loginBox .logo');
+    const htmlElement: HTMLElement = fixture.nativeElement;
+    const img = htmlElement.querySelector('.container .loginBox .logo');
     expect(img.attributes.getNamedItem('alt').textContent).toEqual('Karumi Logo');
   });
 
   it('should have a username input', () => {
-    const usernameElement: HTMLElement = fixture.nativeElement;
-    const input = usernameElement.querySelector('.container .loginBox form .loginForm #iusername');
+    const htmlElement: HTMLElement = fixture.nativeElement;
+    const input = htmlElement.querySelector('.container .loginBox form .loginForm #iusername');
     expect(input.attributes.getNamedItem('type').textContent).toEqual('text');
     expect(input.attributes.getNamedItem('placeholder').textContent).toEqual('Username');
   });
 
   it('should have a password input', () => {
-    const passwordElement: HTMLElement = fixture.nativeElement;
-    const input = passwordElement.querySelector('.container .loginBox form .loginForm #ipassword');
+    const htmlElement: HTMLElement = fixture.nativeElement;
+    const input = htmlElement.querySelector('.container .loginBox form .loginForm #ipassword');
     expect(input.attributes.getNamedItem('type').textContent).toEqual('password');
     expect(input.attributes.getNamedItem('placeholder').textContent).toEqual('Password');
   });
 
   it('login bottom says Login', () => {
-    const buttonElement: HTMLElement = fixture.nativeElement;
-    const btn = buttonElement.querySelector('.container .loginBox form button');
+    const htmlElement: HTMLElement = fixture.nativeElement;
+    const btn = htmlElement.querySelector('.container .loginBox form button');
     expect(btn.textContent).toEqual('Login');
   });
 
@@ -65,12 +65,12 @@ describe('LoginComponent', () => {
     const pass = "1234";
     component.onSubmit({ user: user, password: pass });
 
-    const passwordElement: HTMLElement = fixture.nativeElement;
-    const passInput = passwordElement.querySelector('.container .loginBox form .loginForm #ipassword');
+    const htmlElement: HTMLElement = fixture.nativeElement;
+    
+    const passInput = htmlElement.querySelector('.container .loginBox form .loginForm #ipassword');
     expect(passInput.textContent).toEqual("");
 
-    const usernameElement: HTMLElement = fixture.nativeElement;
-    const userInput = usernameElement.querySelector('.container .loginBox form .loginForm #iusername');
+    const userInput = htmlElement.querySelector('.container .loginBox form .loginForm #iusername');
     expect(userInput.textContent).toEqual("");
   });
 
