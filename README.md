@@ -35,7 +35,7 @@ This solution has been implemented using the following techologies:
   - HTML
   - CSS
 
-To know more about the implementation, visit the wiki page.
+To know more about the implementation, visit the wiki page (TBD).
 
 ## How to run the project
 
