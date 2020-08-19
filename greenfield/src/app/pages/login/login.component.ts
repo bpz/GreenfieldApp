@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
     this.loginInfo = this.formBuilder.group({
       username: '',

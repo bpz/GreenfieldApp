@@ -1,6 +1,3 @@
-<div class="app-container" *ngIf="(authService.isLoggedIn() | async)">
-    <app-logout></app-logout>
-</div>
-<div class="app-container" *ngIf="!(authService.isLoggedIn() | async)">
-    <app-login></app-login>
+<div class="app-container">
+    <router-outlet></router-outlet>
 </div>
