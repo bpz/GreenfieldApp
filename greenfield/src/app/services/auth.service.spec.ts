@@ -1,27 +1,29 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
 import { APIService } from './api.service';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { asyncData } from 'testing/helper.service';
 
 describe('AuthService', () => {
   let service: AuthService;
   let apiServiceSpy: jasmine.SpyObj<APIService>;
 
   beforeEach(() => {
-    const spy = jasmine.createSpyObj('ApiService', ['getValue']);
+    apiServiceSpy = jasmine.createSpyObj('APIService', ['getToken']);
 
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      providers: [{ provide: APIService, useValue: spy }],
+      providers: [{ provide: APIService, useValue: apiServiceSpy }],
     });
+
+    service = new AuthService(apiServiceSpy as APIService);
   });
 
-  it('should be created', inject([AuthService], (service: AuthService) => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
-  }));
+  });
 
-  it('log out removes token and makes login status false', inject([AuthService], (service: AuthService) => {
+  it('log out, login status false', () => {
     service.logout();
 
     var token = localStorage.getItem('token');
@@ -31,11 +33,12 @@ describe('AuthService', () => {
       response => expect(response).toBeFalse(),
       fail
     );
-  }));
+  });
 
-  it('log in with empty params, not logged', inject([AuthService], (service: AuthService) => {
+  it('log in with empty params, not logged', async () => {
     service.logout();
-    service.login('', '');
+
+    await service.login('', '');
 
     var token = localStorage.getItem('token');
     expect(token).toBeNull();
@@ -44,38 +47,31 @@ describe('AuthService', () => {
       response => expect(response).toBeFalse(),
       fail
     );
-  }));
+  });
 
-  it('log in with non-empty params, logged', () => {
+  it('log in with non-empty params, logged', async () => {
     const stubValue = "1234";
     const user = "1234";
     const pass = "1234";
-    const fake = { getToken: (user: string, pass: string) => of(stubValue) };
 
-    let service = new AuthService(fake as APIService);
-    service.logout();
-    service.login(user, pass);
+    apiServiceSpy.getToken.and.returnValue(asyncData(stubValue));
 
-    var token = localStorage.getItem('token');
-    expect(token).toBeTruthy();
-
+    await service.login(user, pass);
     service.isLoggedIn().subscribe(
       response => expect(response).toBeTrue(),
       fail
     );
   });
 
-  it('getToken returns empty, do nothing', () => {
+  it('getToken returns empty, do nothing', async () => {
     const stubValue = "";
     const user = "1234";
     const pass = "1234";
-    const fake = { getToken: (user: string, pass: string) => of(stubValue) };
+ 
+    apiServiceSpy.getToken.and.returnValue(asyncData(stubValue));
 
-    localStorage.setItem('token', "1234");
-
-    let service = new AuthService(fake as APIService);
     service.logout();
-    service.login(user,pass);
+    await service.login(user, pass);
 
     service.isLoggedIn().subscribe(
       response => expect(response).toBeFalse(),

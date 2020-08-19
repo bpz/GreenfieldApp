@@ -20,7 +20,7 @@ export class AuthService {
     }
   }
 
-  login(username: string, password: string) {
+  async login(username: string, password: string) {
     if (username && password) {
       return this.apiService.getToken(username, password)
         .subscribe((response: any) => {
